@@ -1,29 +1,28 @@
-const {createApp} = Vue;
+const { createApp } = Vue;
 
 createApp({
-  data(){
+  data() {
     return {
-      title: '',
-      apiUrl: 'https://flynn.boolean.careers/exercises/api/random/mail',
-      emailList : [],
-    }
+      title: "",
+      apiUrl: "https://flynn.boolean.careers/exercises/api/random/mail",
+      emailList: [],
+    };
   },
   methods: {
-    getApi(){
+    getApi() {
       for (let i = 0; i < 10; i++) {
-        axios
-          .get(this.apiUrl)
-          .then((response) => {
-          console.log(response.data);
+        axios.get(this.apiUrl).then((res) => {
+          console.log(res.data);
+          this.emailList.push(res.data.response);
         })
-
-        
+        .catch( (err) => {
+          console.log(err);
+        })
       }
-
-    }
-
+      console.log(this.emailList);
+    },
   },
-  mounted(){
+  mounted() {
     this.getApi();
   },
-}).mount('#app')
+}).mount("#app");
